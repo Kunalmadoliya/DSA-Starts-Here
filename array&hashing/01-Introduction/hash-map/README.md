@@ -4,6 +4,8 @@ A simple implementation of a **Hash Table** in JavaScript to understand how hash
 
 The project covers the basics of storing and retrieving key-value pairs using a custom hash function.
 
+It also includes a simple **Frequency Counter** example to demonstrate a practical use case of hashing.
+
 ---
 
 ## What is a Hash Table?
@@ -72,6 +74,35 @@ Instead of replacing the existing value, both key-value pairs are stored in the 
 
 ---
 
+## Frequency Counter
+
+Hashing can also be used to count the frequency of elements.
+
+```js
+const arr = [1, 1, 2, 3, 2, 4];
+
+const frequency = {};
+
+for (const value of arr) {
+  frequency[value] = (frequency[value] || 0) + 1;
+}
+
+console.log(frequency);
+```
+
+Output:
+
+```
+{
+  1: 2,
+  2: 2,
+  3: 1,
+  4: 1
+}
+```
+
+---
+
 ## Methods
 
 - **`set(key, value)`** – Stores a key-value pair.
@@ -98,6 +129,7 @@ Worst case: **O(n)** when many keys collide in the same bucket.
 - Collisions
 - Separate Chaining
 - Key-Value Storage
+- Frequency Counter
 - Time Complexity
 
 ---
