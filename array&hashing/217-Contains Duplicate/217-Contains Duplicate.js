@@ -20,6 +20,9 @@ let nums = [
 // Optimized · set time O(n) space O(n)
 
 let set = new Set();
+
+console.log(typeof set);
+
 let duplicate = false;
 
 for (let i = 0; i < nums.length; i++) {
