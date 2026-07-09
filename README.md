@@ -1,4 +1,4 @@
-# 🚀 DSA Roadmap
+# DSA Roadmap
 
 Working through the most important DSA topics one by one. I'll check them off as I complete them.
 
