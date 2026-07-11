@@ -1,3 +1,5 @@
+//brute force o(n^2) space o(1)
+
 let arr = [-1, 0].sort((a, b) => a - b);
 
 const min = Math.min(...arr);
@@ -23,5 +25,34 @@ for (let i = 0; i < newArr.length; i++) {
   }
 }
 
-return max
+console.log(max);
+
+
+//optimise time complexity o(n) and space complexity o(n)
+
+var longestConsecutive = function (nums) {
+  const set = new Set(nums);
+  let longest = 1;
+
+  for (const num of set) {
+    // Agar current number se pehle wala number exist nahi karta, tabhi ye sequence ka first number hai aur yahin se counting start karo.
+    // if( 3-1 ) 2 aleady present hai while wali condition mai jaiga 
+    if (!set.has(num - 1)) {
+      let currentNum = num;
+      let count = 1;
+
+      while (set.has(currentNum + 1)) {
+        currentNum++;
+        count++;
+      }
+
+      longest = Math.max(longest, count);
+    }
+  }
+
+  console.log(longest);
+};
+
+longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]);
+
 
