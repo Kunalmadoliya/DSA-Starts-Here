@@ -54,7 +54,7 @@ var longestConsecutive = function (nums) {
 
   for (const num of set) {
     // Agar current number se pehle wala number exist nahi karta, tabhi ye sequence ka first number hai aur yahin se counting start karo.
-    // if( 3-1 ) 2 aleady present hai while wali condition mai jaiga 
+    // if( 3-1 ) 2 aleady present hai while wali condition mai jaiga
     if (!set.has(num - 1)) {
       let currentNum = num;
       let count = 1;
@@ -72,3 +72,41 @@ var longestConsecutive = function (nums) {
 };
 
 longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]);
+
+// for (let i = 0; i < nums.length; i++) {
+//   let multiply = 1;
+//   for (let j = 0; j < nums.length; j++) {
+//     if (i !== j) {
+//       multiply *= nums[j];
+//     }
+//   }
+
+//   arr2.push(multiply);
+// }
+
+// console.log(arr2);
+
+let nums = [1, 2, 3, 4];
+let prefix = [],
+  pref = 1;
+let suffix = [],
+  suff = 1;
+let arr2 = [];
+
+for (let i = 0; i < nums.length; i++) {
+  prefix[i] = pref;
+  pref = pref * nums[i];
+}
+
+for (let i = nums.length - 1; i >= 0; i--) {
+  suffix[i] = suff;
+  suff *= nums[i];
+}
+
+for (let j = 0; j < nums.length; j++) {
+  arr2[j] = prefix[j] * suffix[j];
+}
+console.log(prefix);
+console.log(suffix);
+
+console.log(arr2);
