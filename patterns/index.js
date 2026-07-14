@@ -137,14 +137,27 @@ for (let i = n - 1; i >= 0; i--) {
 
 console.log("\n================ Pattern 10 ================\n");
 
-for (let i = 0; i < 2 * n  ; i++) {
+for (let i = 0; i < 2 * n; i++) {
   let row = i;
-   if (i > n) {
+  if (i > n) {
     row = 2 * n - i;
   }
   for (let j = 0; j < row; j++) {
     process.stdout.write("*");
   }
- 
+
+  process.stdout.write("\n");
+}
+
+console.log("\n================ Pattern 11 ================\n");
+
+let start = 1;
+for (let i = 0; i < n; i++) {
+  if (i % 2 === 0) start = 1;
+  else start = 0;
+  for (let j = 0; j <= i; j++) {
+    process.stdout.write(`${start}`);
+    start = 1 - start;
+  }
   process.stdout.write("\n");
 }
