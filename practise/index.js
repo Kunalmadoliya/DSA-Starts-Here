@@ -110,3 +110,51 @@ console.log(prefix);
 console.log(suffix);
 
 console.log(arr2);
+
+var maximumSubarraySum = function (nums, k) {
+  const set = new Set();
+  let i = 0,
+    sum = 0,
+    maxSum = 0;
+
+  for (let j = 0; i < nums.length; j++) {
+    while (set.has(nums[j])) {
+      set.delete(nums[i]);
+      sum -= nums[i];
+      i++;
+    }
+
+    set.add(nums[j]);
+    sum += nums[j];
+
+    if (j - i + 1 === k) {
+      maxSum = Math.max(sum, maxSum);
+      set.delete(nums[i]);
+      sum -= nums[i];
+      i++;
+    }
+  }
+  console.log(maxSum);
+};
+
+maximumSubarraySum([1, 5, 4, 2, 9, 9, 9], 3);
+
+var maxScore = function (nums, k) {
+  let lsum = 0,
+    rSum = nums.length - 1
+    max = 0;
+
+  for (let i = 0; i < k; i++) {
+    lsum += nums[i];
+  }
+  max = lsum;
+  for (let i = k - 1; i >= 0; i--) {
+    lsum -= nums[i];
+    rSum += nums[i];
+
+    max = Math.max(lsum, rSum);
+  }
+  console.log(max);
+};
+
+maxScore([1, 2, 3, 4, 5, 6, 1], 3);
