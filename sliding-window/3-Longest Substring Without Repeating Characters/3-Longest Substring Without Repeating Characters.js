@@ -1,3 +1,5 @@
+// time o(n) space o(n)
+
 var lengthOfLongestSubstring = function (s) {
   const set = new Set();
   let count = 0,
