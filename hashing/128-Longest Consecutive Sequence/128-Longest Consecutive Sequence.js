@@ -32,11 +32,11 @@ console.log(max);
 
 var longestConsecutive = function (nums) {
   const set = new Set(nums);
+
   let longest = 1;
 
   for (const num of set) {
-    // Agar current number se pehle wala number exist nahi karta, tabhi ye sequence ka first number hai aur yahin se counting start karo.
-    // if( 3-1 ) 2 aleady present hai while wali condition mai jaiga 
+    
     if (!set.has(num - 1)) {
       let currentNum = num;
       let count = 1;
@@ -49,6 +49,7 @@ var longestConsecutive = function (nums) {
       longest = Math.max(longest, count);
     }
   }
+
 
   console.log(longest);
 };

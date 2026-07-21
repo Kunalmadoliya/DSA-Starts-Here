@@ -141,8 +141,8 @@ maximumSubarraySum([1, 5, 4, 2, 9, 9, 9], 3);
 
 var maxScore = function (nums, k) {
   let lsum = 0,
-    rSum = nums.length - 1
-    max = 0;
+    rSum = nums.length - 1;
+  max = 0;
 
   for (let i = 0; i < k; i++) {
     lsum += nums[i];
@@ -158,3 +158,33 @@ var maxScore = function (nums, k) {
 };
 
 maxScore([1, 2, 3, 4, 5, 6, 1], 3);
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function (nums) {
+  nums.sort((a, b) => a - b);
+
+  let longest = 0;
+
+  let count = 1;
+
+  for (let j = 1; j < nums.length; j++) {
+    if (nums[j] === nums[j - 1]) continue;
+
+    if (nums[j] === nums[j - 1] + 1) {
+      count++;
+    } else {
+      break;
+    }
+  }
+
+  longest = Math.max(longest, count);
+
+  return longest;
+};
+
+console.log(longestConsecutive([100, 4, 200, 1, 3, 2])); // 4
+
+longestConsecutive([100, 4, 200, 1, 3, 2]);
