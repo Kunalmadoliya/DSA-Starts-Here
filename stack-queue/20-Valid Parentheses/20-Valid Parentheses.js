@@ -1,19 +1,21 @@
 var isValid = function (s) {
-  let stack = [];
-  let hash = {")": "(", "]": "[", "}": "{"};
+    let stack = [];
+    const map = {
+        ")": "(",
+        "]": "[",
+        "}": "{",
+    };
 
-  for (const str of s) {
-    if (str in hash) {
-      if (stack.length && stack[stack.length - 1] === hash[char]) {
-        stack.pop(); // Remove the matching opening bracket
-      } else {
-        return false; // Invalid if no match
-      }
-    } else {
-      stack.push(str);
+    for (const char of s) {
+        if (!map[char]) {
+            stack.push(char);
+        } else {
+            let top = stack.pop();
+            if (top !== map[char]) return false;
+        }
     }
-  }
-  return stack.length === 0;
+
+    return stack.length === 0;
 };
 
 isValid("()[]{}");
