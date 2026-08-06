@@ -7,7 +7,7 @@ Working through the most important DSA topics one by one. I'll check them off as
 * [x] Two Pointers
 * [x] Arrays & Hashing
 * [x] Sliding Window
-* [ ] Stack
+* [x] Stack
 * [ ] Linked List
 * [ ] Heap
 * [ ] Binary Search
