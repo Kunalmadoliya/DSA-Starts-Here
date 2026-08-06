@@ -211,8 +211,8 @@
 var maximumSubarraySum = function (nums, k) {
   let set = new Set();
   let sum = 0,
-  maxSum = 0
-    left = 0;
+    maxSum = 0;
+  left = 0;
 
   for (let i = 0; i < nums.length; i++) {
     while (set.has(nums[i])) {
@@ -220,16 +220,40 @@ var maximumSubarraySum = function (nums, k) {
       sum = sum - nums[left++];
     }
     set.add(nums[i]);
-    sum = sum +nums[i];
+    sum = sum + nums[i];
 
-    if(i - left + 1 === k){
-      maxSum = Math.max(sum , maxSum)
-         
+    if (i - left + 1 === k) {
+      maxSum = Math.max(sum, maxSum);
     }
   }
 
   console.log(maxSum);
-  
 };
 
 maximumSubarraySum([5, 5, 4, 2, 9, 9, 9], 3);
+
+var maxScore = function (cardPoints, k) {
+  let lSum = 0,
+    rsum = 0;
+
+  for (let i = 0; i < k; i++) {
+    lSum += cardPoints[i];
+  }
+
+  let maxSum = lSum;
+
+  for (let j = k - 1; j >= 0; j--) {
+    lSum -= cardPoints[j];
+    rsum += cardPoints[j];
+
+    console.log(lSum);
+    console.log(rsum);
+
+    maxSum = Math.max(maxSum, lSum + rsum);
+    console.log(maxSum)
+  }
+
+  console.log(maxSum);
+};
+
+maxScore([1, 2, 3, 4, 5, 6, 1], 3);
