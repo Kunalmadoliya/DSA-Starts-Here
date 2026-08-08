@@ -1,123 +1,309 @@
 class Node {
   constructor(value) {
-    this.data = value;
-    this.nextnode = null;
+    this.value = value;
+    this.next = null;
   }
 }
 
-class linkedLsit {
+class LinkedList {
   constructor() {
     this.head = null;
+    this.tail = null;
   }
 
-  insertValue(data) {
-    const newNode = new Node(data);
+  //insert Opperations
 
+  insertFirst(value) {
+    const newNode = new Node(value);
     if (this.head === null) {
       this.head = newNode;
-    } else {
-      let currentNode = this.head;
-      while (currentNode.nextnode !== null) {
-        currentNode = currentNode.nextnode;
-      }
-      currentNode.nextnode = newNode;
+      this.tail = newNode;
+      return;
     }
+
+    let current = this.head;
+
+    this.head = newNode;
+    newNode.next = current;
   }
 
-  traverseLinkedList() {
+  insertLast(value) {
+    const newNode = new Node(value);
+    if (this.head === null) {
+      this.insertFirst(value);
+      return;
+    }
+    this.tail.next = newNode;
+    this.tail = newNode;
+    newNode.next = null;
+  }
+
+  insertAtIndex(value, idx) {
+    const newNode = new Node(value);
+
+    if (idx <= 0) {
+      this.insertFirst(value);
+      return;
+    }
+    if (idx === this.length()) {
+      this.insertLast(value);
+      return;
+    }
+
+    let currentNode = this.head;
+
+    for (let i = 1; i < idx; i++) {
+      currentNode = currentNode.next;
+    }
+    newNode.next = currentNode.next;
+    currentNode.next = newNode;
+  }
+
+  insertValue(value) {
+    const node = new Node(value);
+    if (this.head === null) {
+      this.insertFirst(value);
+      return;
+    }
+    let currentNode = this.head;
+
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
+    }
+    currentNode.next = node;
+    this.tail.next = node;
+    this.tail = node;
+  }
+
+  length() {
+    let count = 0;
+
+    if (this.head === null) {
+      return;
+    }
+
+    let current = this.head;
+
+    while (current !== null) {
+      count++;
+      current = current.next;
+    }
+    return count;
+  }
+
+  traverse() {
     if (this.head === null) {
       return;
     }
 
     let currentNode = this.head;
-    console.log(currentNode.data);
-    while (currentNode.nextnode !== null) {
-      currentNode = currentNode.nextnode;
-      console.log(currentNode.data);
+
+    while (currentNode !== null) {
+      console.log(currentNode.value);
+
+      currentNode = currentNode.next;
     }
   }
 
-  deleteValue(value) {
+  //delete opperatios
+
+  deleteFirst() {
+    if (this.head === null) {
+      return;
+    }
+    this.head = this.head.next;
+  }
+
+  deleteLast() {
     if (this.head === null) {
       return;
     }
 
-    let cureent = this.head;
-    if (cureent.data === value) {
-      this.head = currentNode.nextnode;
-      return;
-    }
-    let prev = null;
-    while (cureent.nextnode !== null) {
-      if (cureent.data === value) {
-        prev.nextnode = cureent.nextnode;
-        return;
-      }
-      prev = cureent;
-      cureent = cureent.nextnode;
-    }
-  }
-
-  searchValue(value) {
-    if (this.head === null) {
+    if (this.head === this.tail) {
+      this.head = null;
+      this.tail = null;
       return;
     }
 
     let current = this.head;
 
-    if (current.data === value) {
-      console.log("found");
+    while (current.next !== this.tail) {
+      current = current.next;
+    }
+
+    this.tail = current;
+    this.tail.next = null;
+  }
+
+  deleteAtIndex(idx) {
+    if (this.head === null) {
       return;
     }
 
-    while (current.nextnode !== null) {
-      current = current.nextnode;
-
-      if (current.data === value) {
-        console.log("found");
-        return;
-      }
+    if (idx <= 0) {
+      this.deleteFirst();
+      return;
     }
 
-    console.log("not found");
+    if (idx === this.length() - 1) {
+      this.deleteLast();
+      return;
+    }
+    let current = this.head;
+
+    for (let i = 1; i < idx; i++) {
+      current = current.next;
+    }
+
+    current.next = current.next.next;
   }
 
-  lengthLinkedList() {
+  deleteValue(val) {
     if (this.head === null) {
-      return 0;
+      return false;
     }
 
-    let counter = 0;
+    if (this.head.value === val) {
+      this.deleteFirst();
+      return true;
+    }
+
     let current = this.head;
-    counter = 1
-    while (current.nextnode !== null) {
-      current = current.nextnode;
-      counter++;
+
+    while (current.next !== null) {
+      if (current.next.value === val) {
+        if (current.next === this.tail) {
+          this.tail = current;
+        }
+
+        current.next = current.next.next;
+        return true;
+      }
+
+      current = current.next;
     }
 
-    console.log(counter);
+    return false;
+  }
+
+  //search
+
+  searchValue(val) {
+    if (this.head === null) {
+      return;
+    }
+
+    if (this.head.value === val) {
+      return true;
+    }
+
+    let current = this.head;
+
+    while (current !== null) {
+      if (current.value === val) {
+        return true;
+      }
+
+      current = current.next;
+    }
+
+    return false;
+  }
+
+  //empty
+
+  isEmpty() {
+    if (this.head === null) {
+      return true;
+    }
+    return false;
+  }
+
+  //getNode
+
+  getFirstNode() {
+    if (this.isEmpty()) {
+      return;
+    }
+    return this.head;
+  }
+
+  getLastNode() {
+    if (this.isEmpty()) {
+      return;
+    }
+
+    return this.tail;
+  }
+
+  get(idx) {
+    if (this.isEmpty()) {
+      return;
+    }
+
+    if (idx <= 0) {
+      this.getFirstNode();
+      return;
+    }
+
+    if (idx === this.length() - 1) {
+      return this.getLastNode();
+    }
+
+    let current = this.head;
+
+    for (let i = 1; i <= idx; i++) {
+      current = current.next;
+    }
+    return current;
+  }
+
+  //update
+
+  updateValueAtIndex(val, idx) {
+    if (this.isEmpty()) {
+      return;
+    }
+
+    // first node
+    if (idx <= 0) {
+      this.head.value = val;
+      return;
+    }
+
+    if (idx === this.length() - 1) {
+      this.tail.value = val;
+      return;
+    }
+
+    let current = this.head;
+
+    for (let i = 0; i < idx; i++) {
+      current = current.next;
+    }
+
+    current.value = val;
   }
 }
 
-const link = new linkedLsit();
+const ll = new LinkedList();
 
-link.insertValue(2);
-link.insertValue(3);
-link.insertValue(4);
-link.insertValue(5);
-link.insertValue(6);
-link.insertValue(7);
-link.insertValue(5);
-link.insertValue(6);
-link.insertValue(7);
-link.insertValue(5);
-link.insertValue(6);
-link.insertValue(7);
+ll.insertValue(5);
+ll.insertValue(8);
+ll.insertValue(6);
+ll.insertValue(7);
+ll.insertValue(2);
 
-link.deleteValue(5);
+// console.log(ll.searchValue(6));
 
-// link.searchValue(7);
+// ll.traverse();
 
-link.lengthLinkedList()
+// console.log("length", ll.length());
 
-// link.traverseLinkedList();
+// console.log(ll.getFirstNode());
+// console.log(ll.getLastNode());
+// console.log(ll.get(2));
+
+ll.updateValueAtIndex(5, 3);
+
+ll.traverse();

@@ -208,52 +208,74 @@
 
 // findMaxAverage([1, 12, -5, -6, 50, 3], 4);
 
-var maximumSubarraySum = function (nums, k) {
+// var maximumSubarraySum = function (nums, k) {
+//   let set = new Set();
+//   let sum = 0,
+//     maxSum = 0;
+//   left = 0;
+
+//   for (let i = 0; i < nums.length; i++) {
+//     while (set.has(nums[i])) {
+//       set.delete(nums[left]);
+//       sum = sum - nums[left++];
+//     }
+//     set.add(nums[i]);
+//     sum = sum + nums[i];
+
+//     if (i - left + 1 === k) {
+//       maxSum = Math.max(sum, maxSum);
+//     }
+//   }
+
+//   console.log(maxSum);
+// };
+
+// maximumSubarraySum([5, 5, 4, 2, 9, 9, 9], 3);
+
+// var maxScore = function (cardPoints, k) {
+//   let lSum = 0,
+//     rsum = 0;
+
+//   for (let i = 0; i < k; i++) {
+//     lSum += cardPoints[i];
+//   }
+
+//   let maxSum = lSum;
+
+//   for (let j = k - 1; j >= 0; j--) {
+//     lSum -= cardPoints[j];
+//     rsum += cardPoints[j];
+
+//     console.log(lSum);
+//     console.log(rsum);
+
+//     maxSum = Math.max(maxSum, lSum + rsum);
+//     console.log(maxSum);
+//   }
+
+//   console.log(maxSum);
+// };
+
+// maxScore([1, 2, 3, 4, 5, 6, 1], 3);
+
+var lengthOfLongestSubstring = function (s) {
   let set = new Set();
-  let sum = 0,
-    maxSum = 0;
-  left = 0;
+  let r = 0,
+    l = 0,
+    max = 0
 
-  for (let i = 0; i < nums.length; i++) {
-    while (set.has(nums[i])) {
-      set.delete(nums[left]);
-      sum = sum - nums[left++];
+  while (r < s.length) {
+    while (set.has(s[r])) {
+      set.delete(s[l]);
+      l++;
     }
-    set.add(nums[i]);
-    sum = sum + nums[i];
+    set.add(s[r]);
 
-    if (i - left + 1 === k) {
-      maxSum = Math.max(sum, maxSum);
-    }
+    max = Math.max(max, r - l + 1);
+    r++;
   }
 
-  console.log(maxSum);
+  return max
 };
 
-maximumSubarraySum([5, 5, 4, 2, 9, 9, 9], 3);
-
-var maxScore = function (cardPoints, k) {
-  let lSum = 0,
-    rsum = 0;
-
-  for (let i = 0; i < k; i++) {
-    lSum += cardPoints[i];
-  }
-
-  let maxSum = lSum;
-
-  for (let j = k - 1; j >= 0; j--) {
-    lSum -= cardPoints[j];
-    rsum += cardPoints[j];
-
-    console.log(lSum);
-    console.log(rsum);
-
-    maxSum = Math.max(maxSum, lSum + rsum);
-    console.log(maxSum)
-  }
-
-  console.log(maxSum);
-};
-
-maxScore([1, 2, 3, 4, 5, 6, 1], 3);
+lengthOfLongestSubstring("abcabcbb");
