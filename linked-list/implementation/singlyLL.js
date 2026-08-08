@@ -258,6 +258,21 @@ class LinkedList {
     return current;
   }
 
+  getMiddle(){
+    let count = this.length()
+    console.log(count);
+    
+    let current = this.head
+    let middle = Math.floor(count / 2)
+
+    for (let i = 0; i < middle; i++) {
+       current = current.next
+    }
+
+    return current
+  
+  }
+
   //update
 
   updateValueAtIndex(val, idx) {
@@ -284,6 +299,38 @@ class LinkedList {
 
     current.value = val;
   }
+
+  //reverse
+
+  reverse() {
+    let prev = null;
+    let current = this.head;
+
+    while (current !== null) {
+      let next = current.next;
+
+      current.next = prev;
+
+      prev = current;
+      current = next;
+    }
+
+    this.head = prev;
+  }
+
+  //cycle
+
+  hasCycle() {
+    let fast = this.head 
+    let slow = this.head 
+
+    while(fast.next !== null){
+     if( fast === slow){
+      return true 
+     }
+    }
+    return false
+  }
 }
 
 const ll = new LinkedList();
@@ -304,6 +351,7 @@ ll.insertValue(2);
 // console.log(ll.getLastNode());
 // console.log(ll.get(2));
 
-ll.updateValueAtIndex(5, 3);
 
-ll.traverse();
+
+
+console.log(ll.getMiddle())

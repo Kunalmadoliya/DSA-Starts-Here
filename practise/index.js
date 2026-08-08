@@ -258,24 +258,50 @@
 
 // maxScore([1, 2, 3, 4, 5, 6, 1], 3);
 
-var lengthOfLongestSubstring = function (s) {
-  let set = new Set();
-  let r = 0,
-    l = 0,
-    max = 0
+// var lengthOfLongestSubstring = function (s) {
+//   let set = new Set();
+//   let r = 0,
+//     l = 0,
+//     max = 0
 
-  while (r < s.length) {
-    while (set.has(s[r])) {
-      set.delete(s[l]);
-      l++;
+//   while (r < s.length) {
+//     while (set.has(s[r])) {
+//       set.delete(s[l]);
+//       l++;
+//     }
+//     set.add(s[r]);
+
+//     max = Math.max(max, r - l + 1);
+//     r++;
+//   }
+
+//   return max
+// };
+
+// lengthOfLongestSubstring("abcabcbb");
+
+var characterReplacement = function (s, k) {
+  let max = 0,
+    r = 0,
+    maxChar = 0;
+  count = new Array(26).fill(0);
+
+  for (let i = 0; i < s.length; i++) {
+    const index = s.charCodeAt(i) - "A".charCodeAt(0);
+    count[index]++;
+
+    maxChar = Math.max(maxChar, count[index]);
+
+    while (i - r + 1 - maxChar > k) {
+      const leftIdx = s.charCodeAt(r) - "A".charCodeAt(0);
+      count[leftIdx]--;
+      r++;
     }
-    set.add(s[r]);
 
-    max = Math.max(max, r - l + 1);
-    r++;
+    max = Math.max(i - r + 1, max);
   }
 
-  return max
+  console.log(max);
 };
 
-lengthOfLongestSubstring("abcabcbb");
+characterReplacement("AABABBA", 1);
