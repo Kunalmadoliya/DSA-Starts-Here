@@ -258,19 +258,18 @@ class LinkedList {
     return current;
   }
 
-  getMiddle(){
-    let count = this.length()
+  getMiddle() {
+    let count = this.length();
     console.log(count);
-    
-    let current = this.head
-    let middle = Math.floor(count / 2)
+
+    let current = this.head;
+    let middle = Math.floor(count / 2);
 
     for (let i = 0; i < middle; i++) {
-       current = current.next
+      current = current.next;
     }
 
-    return current
-  
+    return current;
   }
 
   //update
@@ -321,37 +320,94 @@ class LinkedList {
   //cycle
 
   hasCycle() {
-    let fast = this.head 
-    let slow = this.head 
+    let fast = this.head;
+    let slow = this.head;
 
-    while(fast.next !== null){
-     if( fast === slow){
-      return true 
-     }
+    while (fast.next !== null) {
+      if (fast === slow) {
+        return true;
+      }
     }
-    return false
+    return false;
+  }
+
+  // removeDuplicates
+
+  removeDuplicates() {
+    if (this.head === null) {
+      return;
+    }
+
+    let current = this.head;
+
+    while (current !== null && current.next !== null) {
+      if (current.value === current.next.value) {
+        current.next = current.next.next;
+      }
+
+      current = current.next;
+    }
+  }
+
+  //clear
+
+  clear() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  //print
+
+  print() {
+    console.log(this.head);
+  }
+
+  //toArray
+
+  toArray() {
+    let current = this.head;
+    let arr = [];
+
+    while (current !== null) {
+      arr.push(current.value);
+
+      current = current.next;
+    }
+    return arr;
+  }
+
+  // fromArray
+
+  fromArray(arr) {
+    this.head = null;
+    this.tail = null;
+
+    for (let value of arr) {
+      this.insertLast(value);
+    }
+    return this.head 
   }
 }
 
 const ll = new LinkedList();
 
-ll.insertValue(5);
-ll.insertValue(8);
-ll.insertValue(6);
-ll.insertValue(7);
+ll.insertValue(1);
 ll.insertValue(2);
+ll.insertValue(3);
+ll.insertValue(5);
+ll.insertValue(9);
+ll.insertValue(7);
 
 // console.log(ll.searchValue(6));
 
-// ll.traverse();
 
+ll.fromArray([1, 2, 3, 4, 5, 6]);
+console.log(ll.fromArray([1, 2, 3, 4, 5, 6]));
+ll.traverse()
 // console.log("length", ll.length());
 
 // console.log(ll.getFirstNode());
 // console.log(ll.getLastNode());
 // console.log(ll.get(2));
 
-
-
-
-console.log(ll.getMiddle())
+// console.log(ll.getMiddle());
