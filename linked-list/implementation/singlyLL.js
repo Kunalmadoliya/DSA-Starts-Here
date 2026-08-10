@@ -385,29 +385,171 @@ class LinkedList {
     for (let value of arr) {
       this.insertLast(value);
     }
-    return this.head 
+    return this.head;
+  }
+
+  //sort
+
+  sort() {
+    if (this.head === null) {
+      return;
+    }
+
+    let current;
+
+    for (let i = this.head; i !== null; i = i.next) {
+      current = i; //yeh head ko maintain karega
+
+      while (current.next !== null) {
+        if (current.value > current.next.value) {
+          let temp = current.value;
+          current.value = current.next.value;
+          current.next.value = temp;
+        }
+
+        current = current.next;
+      }
+    }
+
+    return this.head;
+  }
+
+  //rotate
+
+  rotate(k) {
+    if (this.head === null) {
+      return;
+    }
+
+    let current = this.head;
+    let i = 0;
+
+    while (i < this.length() - k - 1) {
+      current = current.next;
+      i++;
+    }
+
+    let newHead = current.next;
+    current.next = null;
+    this.tail.next = this.head;
+    this.head = newHead;
+    this.tail = current;
+
+    return this.head;
+  }
+
+  //nthFromEnd
+
+  nthFromEnd(k) {
+    if (this.head === null) {
+      return;
+    }
+
+    let i = 0;
+    let current = this.head;
+
+    while (i < this.length() - k) {
+      current = current.next;
+      i++;
+    }
+    return current;
+  }
+
+  //isPalindrome
+
+  isPalindrome() {
+    if (this.head === null && this.head.next === null) {
+      return true;
+    }
+
+    let fast = this.head;
+    let slow = this.head;
+
+    while (fast !== null && fast.next !== null) {
+      fast = fast.next.next;
+      slow = slow.next;
+    }
+
+    let prev = null;
+    let current = slow;
+
+    while (current !== null) {
+      let next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+
+    let first = this.head;
+    let second = prev;
+
+    while (second !== null) {
+      if (first.value !== second.value) return false;
+
+      first = first.next;
+      second = second.next;
+    }
+    return true;
+  }
+
+  //swapNodes
+
+  swapNodes(idx1, idx2) {
+    if (this.head === null || idx1 === idx2) {
+      return this.head;
+    }
+
+    let swap1 = this.head;
+    let swap2 = this.head;
+
+    let prev1 = null;
+    let prev2 = null;
+
+    let i = 0;
+
+    while (i < idx1) {
+      prev1 = swap1;
+      swap1 = swap1.next;
+      i++;
+    }
+
+    i = 0;
+
+    while (i < idx2) {
+      prev2 = swap2;
+      swap2 = swap2.next;
+      i++;
+    }
+
+    // previous nodes ko connect karo
+    if (prev1 !== null) {
+      prev1.next = swap2;
+    } else {
+      this.head = swap2;
+    }
+
+    if (prev2 !== null) {
+      prev2.next = swap1;
+    } else {
+      this.head = swap1;
+    }
+
+    // next pointers swap karo
+    let temp = swap1.next;
+    swap1.next = swap2.next;
+    swap2.next = temp;
+
+    return this.head;
   }
 }
 
 const ll = new LinkedList();
 
-ll.insertValue(1);
-ll.insertValue(2);
-ll.insertValue(3);
-ll.insertValue(5);
-ll.insertValue(9);
-ll.insertValue(7);
+ll.insertValue("a");
+ll.insertValue("a");
+ll.insertValue("b");
+ll.insertValue("b");
+ll.insertValue("a");
+ll.insertValue("b");
 
-// console.log(ll.searchValue(6));
-
-
-ll.fromArray([1, 2, 3, 4, 5, 6]);
-console.log(ll.fromArray([1, 2, 3, 4, 5, 6]));
-ll.traverse()
-// console.log("length", ll.length());
-
-// console.log(ll.getFirstNode());
-// console.log(ll.getLastNode());
-// console.log(ll.get(2));
-
-// console.log(ll.getMiddle());
+console.log(ll.isPalindrome());
