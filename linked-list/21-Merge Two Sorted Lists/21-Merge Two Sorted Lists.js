@@ -66,3 +66,6 @@ while (node) {
 
   node = node.next;
 }
+
+
+console.log(Math.floor(0.8));
