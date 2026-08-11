@@ -280,28 +280,72 @@
 
 // lengthOfLongestSubstring("abcabcbb");
 
-var characterReplacement = function (s, k) {
-  let max = 0,
-    r = 0,
-    maxChar = 0;
-  count = new Array(26).fill(0);
+// var characterReplacement = function (s, k) {
+//   let max = 0,
+//     r = 0,
+//     maxChar = 0;
+//   count = new Array(26).fill(0);
 
-  for (let i = 0; i < s.length; i++) {
-    const index = s.charCodeAt(i) - "A".charCodeAt(0);
-    count[index]++;
+//   for (let i = 0; i < s.length; i++) {
+//     const index = s.charCodeAt(i) - "A".charCodeAt(0);
+//     count[index]++;
 
-    maxChar = Math.max(maxChar, count[index]);
+//     maxChar = Math.max(maxChar, count[index]);
 
-    while (i - r + 1 - maxChar > k) {
-      const leftIdx = s.charCodeAt(r) - "A".charCodeAt(0);
-      count[leftIdx]--;
-      r++;
+//     while (i - r + 1 - maxChar > k) {
+//       const leftIdx = s.charCodeAt(r) - "A".charCodeAt(0);
+//       count[leftIdx]--;
+//       r++;
+//     }
+
+//     max = Math.max(i - r + 1, max);
+//   }
+
+//   console.log(max);
+// }
+
+// characterReplacement("AABABBA", 1);
+
+var minWindow = function (s, t) {
+    let arr = new Array(126).fill(0)
+
+    for (let char of t) {
+        arr[char.charCodeAt(0)]++
     }
 
-    max = Math.max(i - r + 1, max);
-  }
+    let tLength = t.length
+    let left = 0
 
-  console.log(max);
+    let minLenght = Infinity
+    let minStart = 0
+
+    for (let right = 0; right < s.length; right++) {
+        let ch = s.charCodeAt(right)
+
+        if (arr[ch] > 0) {
+            tLength--
+        }
+        arr[ch]--
+
+        while (tLength === 0) {
+            if (right - left + 1 < minLenght) {
+                minLenght = right - left + 1
+                minStart = left
+            }
+
+            let start = s.charCodeAt(left)
+            arr[start]++
+
+            if (arr[start] > 0) {
+               tLength++
+            }
+
+            left++
+        }
+    }
+
+    return minLenght === Infinity ? "" : s.slice(minStart, minStart + minLenght)
+
 };
 
-characterReplacement("AABABBA", 1);
+minWindow("ADOBECODEBANC", "ABC");

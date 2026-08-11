@@ -550,6 +550,9 @@ ll.insertValue("a");
 ll.insertValue("b");
 ll.insertValue("b");
 ll.insertValue("a");
-ll.insertValue("b");
+ll.insertValue("a");
+
+console.log(ll.rotate());
+
 
 console.log(ll.isPalindrome());
