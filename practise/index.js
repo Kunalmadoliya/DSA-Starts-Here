@@ -306,46 +306,79 @@
 
 // characterReplacement("AABABBA", 1);
 
-var minWindow = function (s, t) {
-    let arr = new Array(126).fill(0)
+// var minWindow = function (s, t) {
+//   let arr = new Array(126).fill(0);
 
-    for (let char of t) {
-        arr[char.charCodeAt(0)]++
+//   for (let char of t) {
+//     arr[char.charCodeAt(0)]++;
+//   }
+
+//   let tLength = t.length;
+//   let left = 0;
+
+//   let minLenght = Infinity;
+//   let minStart = 0;
+
+//   for (let right = 0; right < s.length; right++) {
+//     let ch = s.charCodeAt(right);
+
+//     if (arr[ch] > 0) {
+//       tLength--;
+//     }
+//     arr[ch]--;
+
+//     while (tLength === 0) {
+//       if (right - left + 1 < minLenght) {
+//         minLenght = right - left + 1;
+//         minStart = left;
+//       }
+
+//       let start = s.charCodeAt(left);
+//       arr[start]++;
+
+//       if (arr[start] > 0) {
+//         tLength++;
+//       }
+
+//       left++;
+//     }
+//   }
+
+//   return minLenght === Infinity ? "" : s.slice(minStart, minStart + minLenght);
+// };
+
+// minWindow("ADOBECODEBANC", "ABC");
+
+var checkInclusion = function (s1, s2) {
+  const arr = new Array(26).fill(0);
+
+  for (const s of s1) {
+    const ch = s.charCodeAt(0) - "a".charCodeAt(0);
+    arr[ch]++;
+  }
+
+  let length = s1.length;
+
+  for (let r = 0; r < s2.length; r++) {
+    let ch = s2.charCodeAt(r) - "a".charCodeAt(0);
+
+    if (arr[ch] > 0) {
+        length--;
+    }
+    arr[ch]--;
+
+    if (r < length - 1) {
+      continue;
     }
 
-    let tLength = t.length
-    let left = 0
+    if (length === 0) return true;
 
-    let minLenght = Infinity
-    let minStart = 0
+    let leftIdx = s2.charCodeAt(r - length + 1) - "a".charCodeAt(0);
+    arr[leftIdx]++;
+    if (arr[leftCh] > 0) count++;
+  }
 
-    for (let right = 0; right < s.length; right++) {
-        let ch = s.charCodeAt(right)
-
-        if (arr[ch] > 0) {
-            tLength--
-        }
-        arr[ch]--
-
-        while (tLength === 0) {
-            if (right - left + 1 < minLenght) {
-                minLenght = right - left + 1
-                minStart = left
-            }
-
-            let start = s.charCodeAt(left)
-            arr[start]++
-
-            if (arr[start] > 0) {
-               tLength++
-            }
-
-            left++
-        }
-    }
-
-    return minLenght === Infinity ? "" : s.slice(minStart, minStart + minLenght)
-
+  return false;
 };
 
-minWindow("ADOBECODEBANC", "ABC");
+checkInclusion("ab", "eidboaooo");
