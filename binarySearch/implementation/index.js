@@ -28,7 +28,7 @@ function agnosticBinarySearch(target) {
 
   let isAsc = arr[start] < arr[end] ? true : false;
 
-  console.log(isAsc);
+
 
   while (start <= end) {
     let mid = Math.floor(start + (end - start) / 2);
