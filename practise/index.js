@@ -349,36 +349,162 @@
 
 // minWindow("ADOBECODEBANC", "ABC");
 
-var checkInclusion = function (s1, s2) {
-  const arr = new Array(26).fill(0);
+// var checkInclusion = function (s1, s2) {
+//   const arr = new Array(26).fill(0);
 
-  for (const s of s1) {
-    const ch = s.charCodeAt(0) - "a".charCodeAt(0);
-    arr[ch]++;
+//   for (const s of s1) {
+//     const ch = s.charCodeAt(0) - "a".charCodeAt(0);
+//     arr[ch]++;
+//   }
+
+//   let length = s1.length;
+
+//   for (let r = 0; r < s2.length; r++) {
+//     let ch = s2.charCodeAt(r) - "a".charCodeAt(0);
+
+//     if (arr[ch] > 0) {
+//       length--;
+//     }
+//     arr[ch]--;
+
+//     if (r < length - 1) {
+//       continue;
+//     }
+
+//     if (length === 0) return true;
+
+//     let leftIdx = s2.charCodeAt(r - length + 1) - "a".charCodeAt(0);
+//     arr[leftIdx]++;
+//     if (arr[leftCh] > 0) count++;
+//   }
+
+//   return false;
+// };
+
+// checkInclusion("ab", "eidboaooo");
+
+//heap
+let arr = [50, 30, 40, 10, 20];
+
+function leftChildren(i) {
+  let left = 2 * i + 1;
+  return arr[left];
+}
+
+function rightChlidren(i) {
+  let right = 2 * i + 2;
+  return arr[right];
+}
+
+function parent(i) {
+  let pen = Math.floor((i - 1) / 2);
+  return arr[pen];
+}
+
+function getChildren(i) {
+  let left = leftChildren(i);
+  let right = rightChlidren(i);
+
+  return [left, right];
+}
+
+function findNonLeafNode(arr) {
+  let last = arr.length;
+
+  return Math.floor(last / 2) - 1;
+}
+
+//LEVEL 2: Identify Leaf / Non-Leaf
+function identifyLeafNode(n) {
+  const leafIdx = [],
+    nonLeaf = [];
+  let nonLeafNode = Math.floor(n / 2) - 1;
+
+  for (let i = 0; i < n; i++) {
+    if (i <= nonLeafNode) {
+      nonLeaf.push(i);
+    } else {
+      leafIdx.push(i);
+    }
   }
 
-  let length = s1.length;
+  return {leaves: leafIdx, nonLeaves: nonLeaf};
+}
+console.log(identifyLeafNode(10));
 
-  for (let r = 0; r < s2.length; r++) {
-    let ch = s2.charCodeAt(r) - "a".charCodeAt(0);
+console.log(findNonLeafNode([9, 8, 7, 6, 5, 4, 3]));
 
-    if (arr[ch] > 0) {
-        length--;
+//LEVEL 3: Heap Property Check (Valid ya Invalid)
+
+function isValidMaxHeap(arr1) {
+  let i = arr1.length - 1; // fix 1: last valid index se start
+
+  while (i > 0) {
+    // fix 2: root ko child ki tarah check nahi karna
+    let parent = Math.floor((i - 1) / 2);
+
+    if (arr1[i] > arr1[parent]) {
+      return false;
     }
-    arr[ch]--;
-
-    if (r < length - 1) {
-      continue;
-    }
-
-    if (length === 0) return true;
-
-    let leftIdx = s2.charCodeAt(r - length + 1) - "a".charCodeAt(0);
-    arr[leftIdx]++;
-    if (arr[leftCh] > 0) count++;
+    i--;
   }
 
-  return false;
-};
+  return true;
+}
 
-checkInclusion("ab", "eidboaooo");
+function isValidMinHeap(arr1) {
+  let i = arr1.length - 1; // fix 1: last valid index se start
+
+  while (i > 0) {
+    // fix 2: root ko child ki tarah check nahi karna
+    let parent = Math.floor((i - 1) / 2);
+
+    if (arr1[i] < arr1[parent]) {
+      return false;
+    }
+    i--;
+  }
+
+  return true;
+}
+
+console.log(isValidMaxHeap([10, 7, 9, 5, 15, 8, 3, 2, 4]));
+console.log(isValidMinHeap([1, 3, 2, 0, 5]));
+
+//LEVEL 4: Manual Heapify (Kaagaz Pe Trace Karo)
+
+function heapify(arr, n, i) {
+  let larget = i;
+  let leftChild = 2 * i + 1;
+  let rightChild = 2 * i + 2;
+
+  if (leftChild < n && arr[larget] < arr[leftChild]) {
+    larget = leftChild;
+  }
+
+  if (rightChild < n && arr[rightChild] > arr[larget]) {
+    larget = rightChild;
+  }
+
+  if (larget !== i) {
+    let temp = arr[i];
+    arr[i] = arr[larget];
+    arr[larget] = temp;
+
+    heapify(arr, n, larget);
+  }
+}
+
+function buildMaxHeap(arr) {
+  let n = arr.length;
+
+  let findNonleaf = Math.floor(n / 2) - 1;
+
+  for (let i = findNonleaf; i >= 0; i--) {
+    heapify(arr, n, i);
+  }
+
+  return arr;
+}
+
+console.log(buildMaxHeap([1, 12, 9, 5, 6]));
