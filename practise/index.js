@@ -384,188 +384,301 @@
 // checkInclusion("ab", "eidboaooo");
 
 //heap
-let arr = [50, 30, 40, 10, 20];
+// let arr = [50, 30, 40, 10, 20];
 
-function leftChildren(i) {
-  let left = 2 * i + 1;
-  return arr[left];
-}
+// function leftChildren(i) {
+//   let left = 2 * i + 1;
+//   return arr[left];
+// }
 
-function rightChlidren(i) {
-  let right = 2 * i + 2;
-  return arr[right];
-}
+// function rightChlidren(i) {
+//   let right = 2 * i + 2;
+//   return arr[right];
+// }
 
-function parent(i) {
-  let pen = Math.floor((i - 1) / 2);
-  return arr[pen];
-}
+// function parent(i) {
+//   let pen = Math.floor((i - 1) / 2);
+//   return arr[pen];
+// }
 
-function getChildren(i) {
-  let left = leftChildren(i);
-  let right = rightChlidren(i);
+// function getChildren(i) {
+//   let left = leftChildren(i);
+//   let right = rightChlidren(i);
 
-  return [left, right];
-}
+//   return [left, right];
+// }
 
-function findNonLeafNode(arr) {
-  let last = arr.length;
+// function findNonLeafNode(arr) {
+//   let last = arr.length;
 
-  return Math.floor(last / 2) - 1;
-}
+//   return Math.floor(last / 2) - 1;
+// }
 
-//LEVEL 2: Identify Leaf / Non-Leaf
-function identifyLeafNode(n) {
-  const leafIdx = [],
-    nonLeaf = [];
-  let nonLeafNode = Math.floor(n / 2) - 1;
+// //LEVEL 2: Identify Leaf / Non-Leaf
+// function identifyLeafNode(n) {
+//   const leafIdx = [],
+//     nonLeaf = [];
+//   let nonLeafNode = Math.floor(n / 2) - 1;
 
-  for (let i = 0; i < n; i++) {
-    if (i <= nonLeafNode) {
-      nonLeaf.push(i);
+//   for (let i = 0; i < n; i++) {
+//     if (i <= nonLeafNode) {
+//       nonLeaf.push(i);
+//     } else {
+//       leafIdx.push(i);
+//     }
+//   }
+
+//   return {leaves: leafIdx, nonLeaves: nonLeaf};
+// }
+// console.log(identifyLeafNode(10));
+
+// console.log(findNonLeafNode([9, 8, 7, 6, 5, 4, 3]));
+
+// //LEVEL 3: Heap Property Check (Valid ya Invalid)
+
+// function isValidMaxHeap(arr1) {
+//   let i = arr1.length - 1; // fix 1: last valid index se start
+
+//   while (i > 0) {
+//     // fix 2: root ko child ki tarah check nahi karna
+//     let parent = Math.floor((i - 1) / 2);
+
+//     if (arr1[i] > arr1[parent]) {
+//       return false;
+//     }
+//     i--;
+//   }
+
+//   return true;
+// }
+
+// function isValidMinHeap(arr1) {
+//   let i = arr1.length - 1; // fix 1: last valid index se start
+
+//   while (i > 0) {
+//     // fix 2: root ko child ki tarah check nahi karna
+//     let parent = Math.floor((i - 1) / 2);
+
+//     if (arr1[i] < arr1[parent]) {
+//       return false;
+//     }
+//     i--;
+//   }
+
+//   return true;
+// }
+
+// console.log(isValidMaxHeap([10, 7, 9, 5, 15, 8, 3, 2, 4]));
+// console.log(isValidMinHeap([1, 3, 2, 0, 5]));
+
+// //LEVEL 4: Manual Heapify (Kaagaz Pe Trace Karo)
+
+// function heapify(arr, n, i) {
+//   let larget = i;
+//   let leftChild = 2 * i + 1;
+//   let rightChild = 2 * i + 2;
+
+//   if (leftChild < n && arr[larget] < arr[leftChild]) {
+//     larget = leftChild;
+//   }
+
+//   if (rightChild < n && arr[rightChild] > arr[larget]) {
+//     larget = rightChild;
+//   }
+
+//   if (larget !== i) {
+//     let temp = arr[i];
+//     arr[i] = arr[larget];
+//     arr[larget] = temp;
+
+//     heapify(arr, n, larget);
+//   }
+// }
+
+// function buildMaxHeap(arr) {
+//   let n = arr.length;
+
+//   let findNonleaf = Math.floor(n / 2) - 1;
+
+//   for (let i = findNonleaf; i >= 0; i--) {
+//     heapify(arr, n, i);
+//   }
+
+//   return arr;
+// }
+
+// console.log(buildMaxHeap([1, 12, 9, 5, 6]));
+
+// function validMinHeap(arr, k) {
+//   let i = arr.length;
+
+//   while (i > 0) {
+//     let parent = Math.floor((i - 1) / 2);
+
+//     if (arr[i] < arr[parent]) {
+//       return false;
+//     }
+
+//     i--;
+//   }
+//   return true;
+// }
+
+// function minHeapify(arr, n, i) {
+//   let smallest = i;
+//   let leftChild = 2 * i + 1;
+//   let rightChild = 2 * i + 2;
+
+//   if (leftChild < n && arr[leftChild] < arr[smallest]) {
+//     smallest = leftChild;
+//   }
+
+//   if (rightChild < n && arr[rightChild] < arr[smallest]) {
+//     smallest = rightChild;
+//   }
+
+//   if (smallest !== i) {
+//     let temp = arr[i];
+//     arr[i] = arr[smallest];
+//     arr[smallest] = temp;
+
+//     minHeapify(arr, n, smallest);
+//   }
+// }
+
+// function buildMinHeap(arr, k) {
+//   let n = k; // sirf pehle k elements ka heap banana hai, poore array ka nahi
+
+//   for (let i = 0; i < k; i++) {
+//     minHeapify(arr, n, i);
+//   }
+
+//   for (let i = k; i < arr.length; i++) {
+//     let currentElem = arr[i]
+
+//     if(currentElem > arr[0]){
+//       arr[0] = currentElem
+
+//       minHeapify(arr , k)
+//     }
+
+//   }
+
+//   return arr[0]
+// }
+
+// console.log(buildMinHeap([3, 2, 3, 1, 2, 4, 5, 5, 6], 4));
+// var decodeString = function (s) {
+//   let stack1 = []; // numbers
+//   let stack2 = []; // strings
+//   let currentNum = 0;
+//   let currentStr = "";
+
+//   for (const ch of s) {
+//     if (!isNaN(ch) && ch !== " ") {
+//       currentNum = currentNum * 10 + Number(ch);
+//     } else if (ch === "[") {
+//       stack1.push(currentNum);
+//       stack2.push(currentStr);
+//     } else if (ch === "]") {
+//       let prevNum = stack1.pop()
+//       let prevStr = stack2.pop()
+
+//       currentStr = prevStr + currentStr.repeat(prevNum)
+//     } else {
+//       currentStr += ch; // yeh missing tha — letters yahin add honge
+//     }
+//   }
+
+//   return currentStr;
+// };
+
+// console.log(decodeString("2[a3[b]]"));
+
+var longestValidParentheses = function (s) {
+  let stack = [-1];
+  max = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "(") {
+      stack.push(i);
     } else {
-      leafIdx.push(i);
+      stack.pop();
+      if (stack.length === 0) {
+        stack.push(i);
+      } else {
+        max = Math.max(max, i - stack[stack.length - 1]);
+      }
     }
   }
 
-  return {leaves: leafIdx, nonLeaves: nonLeaf};
-}
-console.log(identifyLeafNode(10));
+  return max;
+};
 
-console.log(findNonLeafNode([9, 8, 7, 6, 5, 4, 3]));
+console.log(longestValidParentheses("()(())"));
 
-//LEVEL 3: Heap Property Check (Valid ya Invalid)
+// function swap(nums, right, left) {
+//   let temp = nums[right];
+//   nums[right] = nums[left];
+//   nums[left] = temp;
+// }
 
-function isValidMaxHeap(arr1) {
-  let i = arr1.length - 1; // fix 1: last valid index se start
+// var sortedSquares = function (nums) {
+//   let left = 0,
+//     right = nums.length - 1;
 
-  while (i > 0) {
-    // fix 2: root ko child ki tarah check nahi karna
-    let parent = Math.floor((i - 1) / 2);
+//   while (left < right) {
+//     let leftSq = 0,
+//       rightSq = 0;
 
-    if (arr1[i] > arr1[parent]) {
-      return false;
+//     leftSq = nums[left] * nums[left];
+//     rightSq = nums[right] * nums[right];
+
+//     nums[right] = rightSq;
+//     nums[left] = leftSq;
+
+//     if (nums[left] > nums[right]) {
+//       swap(nums, right, left);
+//     } else if (nums[right] < nums[left]) {
+//       swap(nums, right, left);
+//       left++;
+//     } else {
+//       right--;
+//     }
+//   }
+
+//   return nums;
+// };
+
+// console.log(sortedSquares([-4, -1, 0, 3, 10]));
+
+var merge = function (nums1, m, nums2, n) {
+  let i = 0,
+    j = 0,
+    k = 0,
+    result = new Array(m + n).fill(0);
+
+  while (i < m && j < n) {
+    if (nums1[i] < nums2[j]) {
+      result[k] = nums1[i];
+      i++;
+    } else {
+      result[k] = nums2[j];
+      j++;
     }
-    i--;
+    k++;
   }
 
-  return true;
-}
-
-function isValidMinHeap(arr1) {
-  let i = arr1.length - 1; // fix 1: last valid index se start
-
-  while (i > 0) {
-    // fix 2: root ko child ki tarah check nahi karna
-    let parent = Math.floor((i - 1) / 2);
-
-    if (arr1[i] < arr1[parent]) {
-      return false;
-    }
-    i--;
+  while (j < n) {
+    result[k] = nums2[j++];
+    k++;
+  }
+  while (i < m) {
+    result[k] = nums1[i++];
+    k++;
   }
 
-  return true;
-}
+  return result;
+};
 
-console.log(isValidMaxHeap([10, 7, 9, 5, 15, 8, 3, 2, 4]));
-console.log(isValidMinHeap([1, 3, 2, 0, 5]));
-
-//LEVEL 4: Manual Heapify (Kaagaz Pe Trace Karo)
-
-function heapify(arr, n, i) {
-  let larget = i;
-  let leftChild = 2 * i + 1;
-  let rightChild = 2 * i + 2;
-
-  if (leftChild < n && arr[larget] < arr[leftChild]) {
-    larget = leftChild;
-  }
-
-  if (rightChild < n && arr[rightChild] > arr[larget]) {
-    larget = rightChild;
-  }
-
-  if (larget !== i) {
-    let temp = arr[i];
-    arr[i] = arr[larget];
-    arr[larget] = temp;
-
-    heapify(arr, n, larget);
-  }
-}
-
-function buildMaxHeap(arr) {
-  let n = arr.length;
-
-  let findNonleaf = Math.floor(n / 2) - 1;
-
-  for (let i = findNonleaf; i >= 0; i--) {
-    heapify(arr, n, i);
-  }
-
-  return arr;
-}
-
-console.log(buildMaxHeap([1, 12, 9, 5, 6]));
-
-function validMinHeap(arr, k) {
-  let i = arr.length;
-
-  while (i > 0) {
-    let parent = Math.floor((i - 1) / 2);
-
-    if (arr[i] < arr[parent]) {
-      return false;
-    }
-
-    i--;
-  }
-  return true;
-}
-
-function minHeapify(arr, n, i) {
-  let smallest = i;
-  let leftChild = 2 * i + 1;
-  let rightChild = 2 * i + 2;
-
-  if (leftChild < n && arr[leftChild] < arr[smallest]) {
-    smallest = leftChild;
-  }
-
-  if (rightChild < n && arr[rightChild] < arr[smallest]) {
-    smallest = rightChild;
-  }
-
-  if (smallest !== i) {
-    let temp = arr[i];
-    arr[i] = arr[smallest];
-    arr[smallest] = temp;
-
-    minHeapify(arr, n, smallest);
-  }
-}
-
-function buildMinHeap(arr, k) {
-  let n = k; // sirf pehle k elements ka heap banana hai, poore array ka nahi
-
-
-  for (let i = 0; i < k; i++) {
-    minHeapify(arr, n, i);
-  }
-
-  for (let i = k; i < arr.length; i++) {
-    let currentElem = arr[i]
-
-    if(currentElem > arr[0]){
-      arr[0] = currentElem
-
-      minHeapify(arr , k)
-    }
-    
-  }
- 
-  return arr[0]
-}
-
-console.log(buildMinHeap([3, 2, 3, 1, 2, 4, 5, 5, 6], 4));
+console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
