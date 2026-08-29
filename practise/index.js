@@ -652,33 +652,80 @@ console.log(longestValidParentheses("()(())"));
 
 // console.log(sortedSquares([-4, -1, 0, 3, 10]));
 
-var merge = function (nums1, m, nums2, n) {
+// var merge = function (nums1, m, nums2, n) {
+//   let i = 0,
+//     j = 0,
+//     k = 0,
+//     result = new Array(m + n).fill(0);
+
+//   while (i < m && j < n) {
+//     if (nums1[i] < nums2[j]) {
+//       result[k] = nums1[i];
+//       i++;
+//     } else {
+//       result[k] = nums2[j];
+//       j++;
+//     }
+//     k++;
+//   }
+
+//   while (j < n) {
+//     result[k] = nums2[j++];
+//     k++;
+//   }
+//   while (i < m) {
+//     result[k] = nums1[i++];
+//     k++;
+//   }
+
+//   return result;
+// };
+
+// console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+
+var threeSum = function (nums) {
   let i = 0,
-    j = 0,
-    k = 0,
-    result = new Array(m + n).fill(0);
+    j = 1,
+    k = 2,
+    arr = [];
 
-  while (i < m && j < n) {
-    if (nums1[i] < nums2[j]) {
-      result[k] = nums1[i];
-      i++;
-    } else {
-      result[k] = nums2[j];
-      j++;
+  while (k < nums.length) {
+    if (i != j && i != k && j != k) {
+      if (nums[i] + nums[j] + nums[k] === 0) {
+        arr.push([nums[i], nums[j], nums[k]]);
+      }
     }
+    i++;
+    j++;
     k++;
   }
+  return arr;
+};
 
-  while (j < n) {
-    result[k] = nums2[j++];
-    k++;
-  }
-  while (i < m) {
-    result[k] = nums1[i++];
-    k++;
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+
+function distinctPairs(arr, target) {
+  arr.sort((a, b) => a - b);
+  let i = 0,
+    j = arr.length - 1,
+    result = [];
+
+  while (i < j) {
+    if (arr[i] + arr[j] === target) {
+      result.push([arr[i] , arr[j]]);
+      i++;
+      j--;
+      while (arr[i] === arr[i - 1]) i++;
+      while (arr[j] === arr[j + 1]) j--;
+    } else if (arr[i] + arr[j] > target) {
+      j--;
+    } else {
+      i++;
+    }
   }
 
   return result;
-};
+}
 
-console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+
+console.log(distinctPairs([1,1,1,2,2,2,3,3,3] , 4));
