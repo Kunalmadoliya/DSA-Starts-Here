@@ -712,7 +712,7 @@ function distinctPairs(arr, target) {
 
   while (i < j) {
     if (arr[i] + arr[j] === target) {
-      result.push([arr[i] , arr[j]]);
+      result.push([arr[i], arr[j]]);
       i++;
       j--;
       while (arr[i] === arr[i - 1]) i++;
@@ -727,5 +727,82 @@ function distinctPairs(arr, target) {
   return result;
 }
 
+console.log(distinctPairs([1, 1, 1, 2, 2, 2, 3, 3, 3], 4));
 
-console.log(distinctPairs([1,1,1,2,2,2,3,3,3] , 4));
+function isAlphanumric(ch) {
+  return (
+    (ch >= "a" && ch <= "z") ||
+    (ch >= "A" && ch <= "Z") ||
+    (ch >= "0" && ch <= "9")
+  );
+}
+
+var isPalindrome = function (s) {
+  let str = s.toLowerCase();
+  let i = 0,
+    j = str.length - 1;
+
+  while (i < j) {
+    while (i < j && !isAlphanumric(str[i])) i++;
+    while (i < j && !isAlphanumric(str[j])) j--;
+
+    if (str[i] !== str[j]) {
+      return false;
+    }
+    i++;
+    j--;
+  }
+
+  return true;
+};
+
+console.log(isPalindrome("race a car"));
+
+console.log(isNaN("a")); // kya yeh number nahi hai usne bol false yeh nahi nahi hai
+
+var merge = function (nums1, m, nums2, n) {
+  let j = n - 1,
+    i = m - 1,
+    k = nums1.length - 1;
+
+  while (i >= 0 && j >= 0) {
+    if (nums1[i] <= nums2[j]) {
+      nums1[k] = nums2[j];
+      j--;
+    } else {
+      nums1[k] = nums1[i];
+      i--;
+    }
+    k--;
+  }
+
+  while (j >= 0) {
+    nums1[k] = nums2[j];
+    j--;
+  }
+
+  return nums1;
+};
+
+console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+
+var countPairs = function (nums, target) {
+  nums.sort((a, b) => a - b);
+
+  let i = 0,
+    j = nums.length - 1,
+    count = 0;
+
+  while (i < j) {
+    if (nums[i] + nums[j] >= target) {
+      j--;
+    } else {
+      count += j - i;
+      i++;
+    }
+  }
+
+  return count;
+};
+
+console.log(countPairs([-1,1,2,3,1], 2));
