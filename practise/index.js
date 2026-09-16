@@ -805,4 +805,28 @@ var countPairs = function (nums, target) {
   return count;
 };
 
-console.log(countPairs([-1,1,2,3,1], 2));
+console.log(countPairs([-1, 1, 2, 3, 1], 2));
+
+function swap(nums, p1, p2) {
+  let temp = nums[p1];
+  nums[p1] = nums[p2];
+  nums[p2] = temp;
+}
+
+function twoSort(nums) {
+  let i = 0,
+    j = nums.length - 1;
+
+  while (i < j) {
+    if (nums[i] === 0) {
+      i++;
+    } else {
+      swap(nums, i, j);
+      j--;
+    }
+  }
+
+  return nums;
+}
+
+console.log(twoSort([0, 1, 1, 1, 0, 0, 1, 1]));
