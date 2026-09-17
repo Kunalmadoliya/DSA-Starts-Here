@@ -33,57 +33,92 @@ function search(arr, target, s, end) {
     return search(arr, target, s, mid - 1);
   }
 
-  return search(arr, target,  mid + 1, end);
+  return search(arr, target, mid + 1, end);
 }
-
-
-
-
 
 function print(n) {
-  if(n === 0) return 1
+  if (n === 0) return 1;
   console.log(n);
-  
-  print(n - 1)
+
+  print(n - 1);
 }
 
+function printn(n) {
+  if (n === 0) return;
 
- 
-function printn(n){
-  if(n === 0) return
-
-  printn(n - 1)
+  printn(n - 1);
   console.log(n);
-  
 }
 
 console.log(printn(5));
 
+function factorial(n) {
+  if (n === 1) return 1;
 
-function factorial(n){
-  if( n === 1) return 1
-
-  return n * factorial( n - 1)
+  return n * factorial(n - 1);
 }
- 
+
 console.log(factorial(3));
- 
 
-let n = 1356
+let n = 1356;
 
-console.log(Math.floor(6 / 1)); 
+console.log(Math.floor(6 / 1));
 
-function sumDigit(n){
-  if( n === 0) return 0
+function sumDigit(n) {
+  if (n === 0) return 0;
 
-  let sum =  n % 10 + sumDigit(n / 10)
-  return Math.floor(sum)
+  let sum = (n % 10) + sumDigit(n / 10);
+  return Math.floor(sum);
 }
 
 console.log(sumDigit(1234));
 
-let sum = 0 
+let sum = 0;
 
 function reverse(n) {
-  sum = sum * 10 + reverse(n %10 )
+  if (n === 0) {
+    return;
+  }
+  let rem = n % 10;
+  sum = sum * 10 + rem;
+  reverse(n / 10);
 }
+
+let count = 0;
+
+function checkZero(n) {
+  if (n === 0) {
+    return count;
+  }
+
+  let rem = n % 10;
+
+  if (rem === 0) {
+    count++;
+  }
+
+  return checkZero(Math.floor(n / 10));
+}
+
+console.log(checkZero(30402));
+
+
+
+function helper(n, steps) {
+  if (n === 0) {
+    return steps;
+  }
+
+  if (n % 2 === 1) {
+    return helper(n - 1, steps + 1);
+  }
+
+  return helper(n / 2, steps + 1);
+}
+
+var numberOfSteps = function(num) {
+  return helper(num, 0);
+};
+
+console.log(numberOfSteps(14)); // 6
+console.log(numberOfSteps(14));
