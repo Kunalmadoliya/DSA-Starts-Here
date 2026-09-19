@@ -1,0 +1,4 @@
+var isPowerOfTwo = function(n) {
+    
+    
+};
