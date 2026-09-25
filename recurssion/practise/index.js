@@ -1,124 +1,151 @@
-function fibbo(n) {
-  if (n === 0) return 0;
-  if (n === 1) return 1;
+// function fibbo(n) {
+//   if (n === 0) return 0;
+//   if (n === 1) return 1;
 
-  let f = fibbo(n - 1) + fibbo(n - 2);
-  return f;
+//   let f = fibbo(n - 1) + fibbo(n - 2);
+//   return f;
+// }
+
+// console.log(fibbo(8));
+
+// function bs() {
+//   let arr = [1, 2, 3, 4, 6, 8, 10],
+//     target = 6,
+//     start = 0,
+//     end = arr.length - 1;
+//   let result = search(arr, target, start, end);
+
+//   return result;
+// }
+
+// function search(arr, target, s, end) {
+//   if (s > end) {
+//     return -1;
+//   }
+
+//   let mid = Math.floor(s + (end - s) / 2);
+
+//   if (arr[mid] === target) {
+//     return mid;
+//   }
+
+//   if (arr[mid] > target) {
+//     return search(arr, target, s, mid - 1);
+//   }
+
+//   return search(arr, target, mid + 1, end);
+// }
+
+// function print(n) {
+//   if (n === 0) return 1;
+//   console.log(n);
+
+//   print(n - 1);
+// }
+
+// function printn(n) {
+//   if (n === 0) return;
+
+//   printn(n - 1);
+//   console.log(n);
+// }
+
+// console.log(printn(5));
+
+// function factorial(n) {
+//   if (n === 1) return 1;
+
+//   return n * factorial(n - 1);
+// }
+
+// console.log(factorial(3));
+
+// let n = 1356;
+
+// console.log(Math.floor(6 / 1));
+
+// function sumDigit(n) {
+//   if (n === 0) return 0;
+
+//   let sum = (n % 10) + sumDigit(n / 10);
+//   return Math.floor(sum);
+// }
+
+// console.log(sumDigit(1234));
+
+// let sum = 0;
+
+// function reverse(n) {
+//   if (n === 0) {
+//     return;
+//   }
+//   let rem = n % 10;
+//   sum = sum * 10 + rem;
+//   reverse(n / 10);
+// }
+
+// let count = 0;
+
+// function checkZero(n) {
+//   if (n === 0) {
+//     return count;
+//   }
+
+//   let rem = n % 10;
+
+//   if (rem === 0) {
+//     count++;
+//   }
+
+//   return checkZero(Math.floor(n / 10));
+// }
+
+// console.log(checkZero(30402));
+
+// function helper(n, steps) {
+//   if (n === 0) {
+//     return steps;
+//   }
+
+//   if (n % 2 === 1) {
+//     return helper(n - 1, steps + 1);
+//   }
+
+//   return helper(n / 2, steps + 1);
+// }
+
+// var numberOfSteps = function(num) {
+//   return helper(num, 0);
+// };
+
+// console.log(numberOfSteps(14)); // 6
+// console.log(numberOfSteps(14));
+
+function ls(arr, target) {
+  helper(arr, 0, target);
+  return a2;
 }
+let a2 = [];
 
-console.log(fibbo(8));
-
-function bs() {
-  let arr = [1, 2, 3, 4, 6, 8, 10],
-    target = 6,
-    start = 0,
-    end = arr.length - 1;
-  let result = search(arr, target, start, end);
-
-  return result;
-}
-
-function search(arr, target, s, end) {
-  if (s > end) {
-    return -1;
+function helper(arr, index, target) {
+  if (index === arr.length - 1) {
+    return a2;
   }
 
-  let mid = Math.floor(s + (end - s) / 2);
-
-  if (arr[mid] === target) {
-    return mid;
+  if (arr[index] === target) {
+    a2.push(index);
   }
 
-  if (arr[mid] > target) {
-    return search(arr, target, s, mid - 1);
-  }
-
-  return search(arr, target, mid + 1, end);
+  return helper(arr, index + 1, target);
 }
 
-function print(n) {
-  if (n === 0) return 1;
-  console.log(n);
+console.log(ls([1, 20, 30, 4, 0, 5, 5, 5, 6], 5));
 
-  print(n - 1);
+let i;
+
+for (i = 1; i <= 5; i++) {
+ console.log(i * 6);
+ 
 }
+console.log(i);
 
-function printn(n) {
-  if (n === 0) return;
-
-  printn(n - 1);
-  console.log(n);
-}
-
-console.log(printn(5));
-
-function factorial(n) {
-  if (n === 1) return 1;
-
-  return n * factorial(n - 1);
-}
-
-console.log(factorial(3));
-
-let n = 1356;
-
-console.log(Math.floor(6 / 1));
-
-function sumDigit(n) {
-  if (n === 0) return 0;
-
-  let sum = (n % 10) + sumDigit(n / 10);
-  return Math.floor(sum);
-}
-
-console.log(sumDigit(1234));
-
-let sum = 0;
-
-function reverse(n) {
-  if (n === 0) {
-    return;
-  }
-  let rem = n % 10;
-  sum = sum * 10 + rem;
-  reverse(n / 10);
-}
-
-let count = 0;
-
-function checkZero(n) {
-  if (n === 0) {
-    return count;
-  }
-
-  let rem = n % 10;
-
-  if (rem === 0) {
-    count++;
-  }
-
-  return checkZero(Math.floor(n / 10));
-}
-
-console.log(checkZero(30402));
-
-
-
-function helper(n, steps) {
-  if (n === 0) {
-    return steps;
-  }
-
-  if (n % 2 === 1) {
-    return helper(n - 1, steps + 1);
-  }
-
-  return helper(n / 2, steps + 1);
-}
-
-var numberOfSteps = function(num) {
-  return helper(num, 0);
-};
-
-console.log(numberOfSteps(14)); // 6
-console.log(numberOfSteps(14));
